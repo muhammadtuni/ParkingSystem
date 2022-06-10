@@ -55,7 +55,7 @@ Clone the repo
 
 Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
   <a href="https://github.com/muhammadtuni/ParkingSystem_Spring_Rest.git">
-    <img src="images/ss postman.png" alt="Logo" width="80" height="80">
+    <img src="image/ss postman.png" alt="Logo" width="80" height="80">
   </a>
   
 * All Category
