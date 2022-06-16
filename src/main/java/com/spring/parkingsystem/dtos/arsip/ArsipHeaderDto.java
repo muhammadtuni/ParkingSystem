@@ -24,11 +24,15 @@ public class ArsipHeaderDto {
         arsip.setTransaction(transaction);
         arsip.setMasuk(transaction.getJamMasuk());
         arsip.setKeluar(LocalDateTime.now());
-        arsip.setTarif(transaction.getJenisKendaraan().getTarif() + (transaction.getJenisKendaraan().getTariflanjut() * durasi.toHoursPart()));
         if (durasi.toDays() > 0){
+            arsip.setTarif(transaction.getJenisKendaraan().getTarif() + ((int)durasi.toDays() * 48000) + (transaction.getJenisKendaraan().getTariflanjut() * LocalDateTime.now().getHour()));
             arsip.setKeterangan("Kendaraan keluar setelah " + durasi.toDays() + " hari");
-        } else {
+        } if (durasi.toHours() > 0){
+            arsip.setTarif(transaction.getJenisKendaraan().getTarif() + (transaction.getJenisKendaraan().getTariflanjut() * durasi.toHoursPart()));
             arsip.setKeterangan("Kendaraan keluar setelah " + durasi.toHours() + " jam");
+        } else {
+            arsip.setTarif(transaction.getJenisKendaraan().getTarif());
+            arsip.setKeterangan("Kendaraan keluar setelah " + durasi.toMinutes() + " menit");
         }
         return arsip;
     }
