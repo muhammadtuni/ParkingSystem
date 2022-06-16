@@ -1,5 +1,6 @@
 package com.spring.parkingsystem.controllers;
 
+import com.spring.parkingsystem.dtos.RestResponse;
 import com.spring.parkingsystem.dtos.category.CategoryFilterDto;
 import com.spring.parkingsystem.dtos.category.CategoryHeaderDto;
 import com.spring.parkingsystem.dtos.category.UpsertCategoryDto;
@@ -44,53 +45,63 @@ public class CategoryController {
             "/id={id}",
             "/page={page}&id={id}"
     })
-    public ResponseEntity<Object> get(@PathVariable(required = false) Integer page, @PathVariable(required = false) String id){
+    public ResponseEntity<RestResponse<Object>> get(@PathVariable(required = false) Integer page, @PathVariable(required = false) String id){
         page = (page == null) ? 1 : page;
         id = (id == null) ? "" : id;
         try{
             Page<Object> pageCollection = service.getHeader(page, new CategoryFilterDto(id), CategoryFilterDto.class);
             List<Object> header = getHeaderDto(pageCollection);
-            return ResponseEntity.status(HttpStatus.OK).body(header);
+            return new ResponseEntity<>(new RestResponse<>((header), "Succes", "200"), HttpStatus.OK);
+//            return ResponseEntity.status(HttpStatus.OK).body(header);
         } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 
     @PostMapping
-    public ResponseEntity<Object> post(@Valid @RequestBody UpsertCategoryDto dto, BindingResult bindingResult){
+    public ResponseEntity<RestResponse<Object>> post(@Valid @RequestBody UpsertCategoryDto dto, BindingResult bindingResult){
         try{
             if(!bindingResult.hasErrors()){
                 Object respond = service.save(dto, UpsertCategoryDto.class);
-                return ResponseEntity.status(HttpStatus.CREATED).body(respond);
+                return new ResponseEntity<>(new RestResponse<>(respond, "Succes", "201"), HttpStatus.CREATED);
+//                return ResponseEntity.status(HttpStatus.CREATED).body(respond);
             } else {
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Validation Failed, Http Request Body is not validated.");
+                return new ResponseEntity<>(new RestResponse<>(null, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
+//                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Validation Failed, Http Request Body is not validated.");
             }
         } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 
     @PutMapping
-    public ResponseEntity<Object> put(@Valid @RequestBody UpsertCategoryDto dto, BindingResult bindingResult){
+    public ResponseEntity<RestResponse<Object>> put(@Valid @RequestBody UpsertCategoryDto dto, BindingResult bindingResult){
         try{
             if(!bindingResult.hasErrors()){
                 service.save(dto, UpsertCategoryDto.class);
-                return ResponseEntity.status(HttpStatus.OK).body(dto);
+                return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
+//                return ResponseEntity.status(HttpStatus.OK).body(dto);
             } else {
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Validation Failed, Http Request Body is not validated.");
+                return new ResponseEntity<>(new RestResponse<>(null, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
+//                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Validation Failed, Http Request Body is not validated.");
             }
         }catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(required = true) String id){
+    public ResponseEntity<RestResponse<Object>> delete(@PathVariable(required = true) String id){
         try{
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body(id + " is deleted.");
+            return new ResponseEntity<>(new RestResponse<>((id + " is deleted."), "Succes", "200"), HttpStatus.OK);
+//            return ResponseEntity.status(HttpStatus.OK).body(id + " is deleted.");
         }catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 }

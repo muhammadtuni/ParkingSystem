@@ -48,15 +48,17 @@ public class ArsipController {
             "/keterangan={keterangan}",
             "/page={page}&keterangan={keterangan}"
     })
-    public ResponseEntity<Object> get(@PathVariable(required = false) Integer page, @PathVariable(required = false) String keterangan){
+    public ResponseEntity<RestResponse<Object>> get(@PathVariable(required = false) Integer page, @PathVariable(required = false) String keterangan){
         page = (page == null) ? 1 : page;
         keterangan = (keterangan == null) ? "" : keterangan;
         try{
             Page<Object> pageCollection = service.getHeader(page, new ArsipFilterDto(keterangan), ArsipFilterDto.class);
             List<Object> header = getHeaderDto(pageCollection);
-            return ResponseEntity.status(HttpStatus.OK).body(header);
+            return new ResponseEntity<>(new RestResponse<>((header), "Succes", "200"), HttpStatus.OK);
+//            return ResponseEntity.status(HttpStatus.OK).body(header);
         } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+            return new ResponseEntity<>(new RestResponse<>(exception.getMessage(),"There is a run-time error on the server.", "500"), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 }

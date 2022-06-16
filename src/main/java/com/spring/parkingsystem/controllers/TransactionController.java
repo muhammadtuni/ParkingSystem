@@ -52,15 +52,17 @@ public class TransactionController {
             "/keterangan={keterangan}",
             "/page={page}&keterangan={keterangan}"
     })
-    public ResponseEntity<Object> get(@PathVariable(required = false) Integer page, @PathVariable(required = false) String keterangan){
+    public ResponseEntity<RestResponse<Object>> get(@PathVariable(required = false) Integer page, @PathVariable(required = false) String keterangan){
         page = (page == null) ? 1 : page;
         keterangan = (keterangan == null) ? "" : keterangan;
         try{
             Page<Object> pageCollection = service.getHeader(page, new TransactionFilterDto(keterangan), TransactionFilterDto.class);
             List<Object> grid = getGridDto(pageCollection);
-            return ResponseEntity.status(HttpStatus.OK).body(grid);
+            return new ResponseEntity<>(new RestResponse<>((grid), "Success", "200"), HttpStatus.OK);
+//            return ResponseEntity.status(HttpStatus.OK).body(grid);
         } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+            return new ResponseEntity<>(new RestResponse<>(exception.getMessage(), "Error", "500"), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 
