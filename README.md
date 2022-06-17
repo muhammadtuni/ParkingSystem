@@ -60,11 +60,11 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
   </a>
 </div>
   
-* All Category
+* All Category (GET)
    ```sh
    {{base_url}}/category
    ```
-* Insert Category
+* Insert Category (POST)
    ```sh
    {{base_url}}/category
    ```
@@ -76,11 +76,11 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
     "tariflanjut" : "set tarif lanjut"
     }
    ```
-* Delete Category
+* Delete Category (DELETE)
   ```sh
   {{base_url}}/category/{id}
   ```
-* Update Category  
+* Update Category (PUT)
    ```sh
    {{base_url}}/category
    ```
@@ -92,23 +92,23 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
     "tariflanjut" : "set tarif lanjut baru"
     }
    ```
-* Masuk Motor
+* Masuk Motor (POST)
    ```sh
    {{base_url}}/transaction/motor
    ```
-* Masuk Mobil
+* Masuk Mobil (POST)
    ```sh
    {{base_url}}/transaction/mobil
    ``` 
-* Keluar Parkir
+* Keluar Parkir (POST)
    ```sh
    {{base_url}}/transaction/keluar?id="masukkan id yang ingin di keluarkan"
    ``` 
-* All Transaction
+* All Transaction (GET)
    ```sh
    {{base_url}}/transaction
    ```  
-* All Arsip
+* All Arsip (GET)
    ```sh
    {{base_url}}/arsip
    ```    
