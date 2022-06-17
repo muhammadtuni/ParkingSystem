@@ -5,8 +5,10 @@ import com.spring.parkingsystem.dtos.transaction.MasukParkirDto;
 import com.spring.parkingsystem.dtos.transaction.TransactionFilterDto;
 import com.spring.parkingsystem.dtos.transaction.TransactionHeaderDto;
 import com.spring.parkingsystem.models.Arsip;
+import com.spring.parkingsystem.models.Category;
 import com.spring.parkingsystem.models.Transaction;
 import com.spring.parkingsystem.repositories.ArsipRepository;
+import com.spring.parkingsystem.repositories.CategoryRepository;
 import com.spring.parkingsystem.repositories.TransactionRepository;
 import com.spring.parkingsystem.services.abstraction.CrudService;
 import com.spring.parkingsystem.services.abstraction.TransactionService;
@@ -26,6 +28,8 @@ public class TransactionImplementationService implements TransactionService, Cru
     private TransactionRepository transactionRepository;
     @Autowired
     private ArsipRepository arsipRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 
     private final int rowsInPage = 10;
@@ -40,14 +44,16 @@ public class TransactionImplementationService implements TransactionService, Cru
 
     @Override
     public TransactionHeaderDto masukParkirMotor(MasukParkirDto motor) {
-        Transaction masukMotor = motor.parkirMotor(new Transaction());
+        Category category = categoryRepository.getById("Roda 2");
+        Transaction masukMotor = motor.parkirMotor(new Transaction(), category);
         transactionRepository.save(masukMotor);
         return TransactionHeaderDto.set(masukMotor);
     }
 
     @Override
     public TransactionHeaderDto masukParkirMobil(MasukParkirDto mobil) {
-        Transaction masukMobil = mobil.parkirMobil(new Transaction());
+        Category category = categoryRepository.getById("Roda 4");
+        Transaction masukMobil = mobil.parkirMobil(new Transaction(), category);
         transactionRepository.save(masukMobil);
         return TransactionHeaderDto.set(masukMobil);
     }

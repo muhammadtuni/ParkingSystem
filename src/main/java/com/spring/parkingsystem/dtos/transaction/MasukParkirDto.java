@@ -16,16 +16,16 @@ public class MasukParkirDto {
     private final LocalTime jamMasuk;
     private final LocalDate tanggalMasuk;
 
-    public Transaction parkirMotor(Transaction motor) {
-        motor.setJenisKendaraan(new Category("Roda 2", 2000, 2000));
+    public Transaction parkirMotor(Transaction motor, Category categoryMotor) {
+        motor.setJenisKendaraan(categoryMotor);
         motor.setKeterangan("Motor");
         motor.setJamMasuk(LocalDateTime.now());
         motor.setTanggalMasuk(LocalDate.now());
         return motor;
     }
 
-    public Transaction parkirMobil(Transaction mobil) {
-        mobil.setJenisKendaraan(new Category("Roda 4", 4000, 2000));
+    public Transaction parkirMobil(Transaction mobil, Category categoryMobil) {
+        mobil.setJenisKendaraan(categoryMobil);
         mobil.setKeterangan("Mobil");
         mobil.setJamMasuk(LocalDateTime.now());
         mobil.setTanggalMasuk(LocalDate.now());
