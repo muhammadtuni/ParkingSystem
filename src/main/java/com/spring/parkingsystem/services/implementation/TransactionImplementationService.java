@@ -66,10 +66,10 @@ public class TransactionImplementationService implements TransactionService, Cru
         return ArsipHeaderDto.set(keluar);
     }
 
-    @Override
-    public Object getUpdate(Object id) {
-        return null;
-    }
+//    @Override
+//    public Object getUpdate(Object id) {
+//        return null;
+//    }
 
     @Override
     public Object save(Object dto, Class<?> dtoType) {

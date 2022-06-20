@@ -27,10 +27,10 @@ public class ArsipImplementationService implements CrudService {
         return header;
     }
 
-    @Override
-    public Object getUpdate(Object id) {
-        return null;
-    }
+//    @Override
+//    public Object getUpdate(Object id) {
+//        return null;
+//    }
 
     @Override
     public Object save(Object dto, Class<?> dtoType) {
