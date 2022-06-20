@@ -27,7 +27,7 @@ public class ArsipHeaderDto {
         if (durasi.toDays() > 0){
             arsip.setTarif(transaction.getJenisKendaraan().getTarif() + ((int)durasi.toDays() * 48000) + (transaction.getJenisKendaraan().getTariflanjut() * LocalDateTime.now().getHour()));
             arsip.setKeterangan("Kendaraan keluar setelah " + durasi.toDays() + " hari");
-        } if (durasi.toHours() > 0){
+        } else if (durasi.toHours() > 0){
             arsip.setTarif(transaction.getJenisKendaraan().getTarif() + (transaction.getJenisKendaraan().getTariflanjut() * durasi.toHoursPart()));
             arsip.setKeterangan("Kendaraan keluar setelah " + durasi.toHours() + " jam");
         } else {
