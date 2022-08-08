@@ -52,10 +52,19 @@ public class CategoryController {
             Page<Object> pageCollection = service.getHeader(page, new CategoryFilterDto(id), CategoryFilterDto.class);
             List<Object> header = getHeaderDto(pageCollection);
             return new ResponseEntity<>(new RestResponse<>((header), "Succes", "200"), HttpStatus.OK);
-//            return ResponseEntity.status(HttpStatus.OK).body(header);
         } catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+        }
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<RestResponse<Object>> getUpdate(@RequestParam(required = true) String id){
+        try{
+            var entity = service.getUpdate(id);
+            var dto = new CategoryHeaderDto(entity);
+            return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
+        } catch (Exception exception){
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -65,14 +74,11 @@ public class CategoryController {
             if(!bindingResult.hasErrors()){
                 Object respond = service.save(dto, UpsertCategoryDto.class);
                 return new ResponseEntity<>(new RestResponse<>(respond, "Succes", "201"), HttpStatus.CREATED);
-//                return ResponseEntity.status(HttpStatus.CREATED).body(respond);
             } else {
                 return new ResponseEntity<>(new RestResponse<>(null, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
-//                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Validation Failed, Http Request Body is not validated.");
             }
         } catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 
@@ -82,14 +88,11 @@ public class CategoryController {
             if(!bindingResult.hasErrors()){
                 service.save(dto, UpsertCategoryDto.class);
                 return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
-//                return ResponseEntity.status(HttpStatus.OK).body(dto);
             } else {
                 return new ResponseEntity<>(new RestResponse<>(null, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
-//                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Validation Failed, Http Request Body is not validated.");
             }
         }catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 
@@ -98,10 +101,8 @@ public class CategoryController {
         try{
             service.delete(id);
             return new ResponseEntity<>(new RestResponse<>((id + " is deleted."), "Succes", "200"), HttpStatus.OK);
-//            return ResponseEntity.status(HttpStatus.OK).body(id + " is deleted.");
         }catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
         }
     }
 }

@@ -11,21 +11,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
-public class TransactionHeaderDto {
+public class TransactionDto {
     private Integer id;
-    private String kendaraan;
+    private String keterangan;
     private LocalDateTime jam;
     private LocalDate tanggal;
-    private Integer tarif;
-    private Integer tariflanjut;
 
-    public TransactionHeaderDto(Object entity) {
+    public TransactionDto(Object entity) {
         this.id = MapperHelper.getIntegerField(entity, "id", Transaction.class);
+        this.keterangan = MapperHelper.getStringField(entity, "keterangan", Transaction.class);
         this.jam = MapperHelper.getLocalDateTimeField(entity, "jamMasuk", Transaction.class);
         this.tanggal = MapperHelper.getLocalDateField(entity, "tanggalMasuk", Transaction.class);
-    }
-
-    public static TransactionHeaderDto set(Transaction transaction){
-        return new TransactionHeaderDto(transaction.getId(), transaction.getJenisKendaraan().getId(), transaction.getJamMasuk(), transaction.getTanggalMasuk(), transaction.getJenisKendaraan().getTarif(), transaction.getJenisKendaraan().getTariflanjut());
     }
 }

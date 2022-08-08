@@ -2,10 +2,7 @@ package com.spring.parkingsystem.controllers;
 
 import com.spring.parkingsystem.dtos.RestResponse;
 import com.spring.parkingsystem.dtos.arsip.ArsipHeaderDto;
-import com.spring.parkingsystem.dtos.transaction.MasukParkirDto;
-import com.spring.parkingsystem.dtos.transaction.TransactionFilterDto;
-import com.spring.parkingsystem.dtos.transaction.TransactionGridDto;
-import com.spring.parkingsystem.dtos.transaction.TransactionHeaderDto;
+import com.spring.parkingsystem.dtos.transaction.*;
 import com.spring.parkingsystem.services.abstraction.CrudService;
 import com.spring.parkingsystem.services.abstraction.TransactionService;
 import com.spring.parkingsystem.utility.MapperHelper;
@@ -59,10 +56,19 @@ public class TransactionController {
             Page<Object> pageCollection = service.getHeader(page, new TransactionFilterDto(keterangan), TransactionFilterDto.class);
             List<Object> grid = getGridDto(pageCollection);
             return new ResponseEntity<>(new RestResponse<>((grid), "Success", "200"), HttpStatus.OK);
-//            return ResponseEntity.status(HttpStatus.OK).body(grid);
         } catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(exception.getMessage(), "Error", "500"), HttpStatus.INTERNAL_SERVER_ERROR);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RestResponse<Object>> getUpdate(@PathVariable(required = true) Integer id){
+        try{
+            var entity = service.getUpdate(id);
+            var dto = new TransactionDto(entity);
+            return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
+        } catch (Exception exception){
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

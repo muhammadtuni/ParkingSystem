@@ -55,10 +55,19 @@ public class ArsipController {
             Page<Object> pageCollection = service.getHeader(page, new ArsipFilterDto(keterangan), ArsipFilterDto.class);
             List<Object> header = getHeaderDto(pageCollection);
             return new ResponseEntity<>(new RestResponse<>((header), "Succes", "200"), HttpStatus.OK);
-//            return ResponseEntity.status(HttpStatus.OK).body(header);
         } catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(exception.getMessage(),"There is a run-time error on the server.", "500"), HttpStatus.INTERNAL_SERVER_ERROR);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There is a run-time error on the server.");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RestResponse<Object>> getUpdate(@PathVariable(required = true) Integer id){
+        try{
+            var entity = service.getUpdate(id);
+            var dto = new ArsipHeaderDto(entity);
+            return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
+        } catch (Exception exception){
+            return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

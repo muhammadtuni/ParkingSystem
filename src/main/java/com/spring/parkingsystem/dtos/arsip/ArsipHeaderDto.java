@@ -2,6 +2,7 @@ package com.spring.parkingsystem.dtos.arsip;
 
 import com.spring.parkingsystem.models.Arsip;
 import com.spring.parkingsystem.models.Transaction;
+import com.spring.parkingsystem.utility.MapperHelper;
 import lombok.*;
 
 import java.time.Duration;
@@ -12,11 +13,19 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ArsipHeaderDto {
-    private Integer TransactionId;
+    private Integer transactionId;
     private LocalDateTime masuk;
     private LocalDateTime keluar;
     private Integer tarif;
     private String keterangan;
+
+    public ArsipHeaderDto(Object entity) {
+        this.transactionId = MapperHelper.getIntegerField(entity, "id", Arsip.class);
+        this.masuk = MapperHelper.getLocalDateTimeField(entity, "masuk", Arsip.class);
+        this.keluar = MapperHelper.getLocalDateTimeField(entity, "keluar", Arsip.class);
+        this.tarif = MapperHelper.getIntegerField(entity, "tarif", Arsip.class);
+        this.keterangan = MapperHelper.getStringField(entity, "keterangan", Arsip.class);
+    }
 
     public Arsip keluarParkir(Arsip arsip, Transaction transaction){
         var durasi = Duration.between(transaction.getJamMasuk(), LocalDateTime.now());

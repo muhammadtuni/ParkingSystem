@@ -18,8 +18,27 @@ public class MapperHelper {
         return null;
     }
 
+    private static <T> Object getFieldValue(Object object, String fieldName){
+        try{
+            Field field = object.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            var value = field.get(object);
+            return value;
+        }catch (Exception exception){
+        }
+        return null;
+    }
+
     public static Integer getIntegerField(Object object, String fieldName, Class<?> classType){
         return (Integer) getFieldValue(object, fieldName, classType);
+    }
+
+    public static <T> Integer getIntegerField(T object, String fieldName){
+        try{
+            return (Integer) getFieldValue(object, fieldName);
+        }catch (Exception exception){
+            return null;
+        }
     }
 
     public static Integer getIntegerField(Object object, Integer index){
@@ -28,6 +47,14 @@ public class MapperHelper {
 
     public static String getStringField(Object object, String fieldName, Class<?> classType){
         return getFieldValue(object, fieldName, classType).toString();
+    }
+
+    public static <T> String getStringField(T object, String fieldName){
+        try{
+            return getFieldValue(object, fieldName).toString();
+        }catch (Exception exception){
+            return null;
+        }
     }
 
     public static String getStringField(Object object, Integer index){
@@ -50,7 +77,7 @@ public class MapperHelper {
         return (LocalDate) ((Object[])object)[index];
     }
 
-    public static Category getLCategoryField(Object object, String fieldName, Class<?> classType){
+    public static Category getCategoryField(Object object, String fieldName, Class<?> classType){
         return (Category) getFieldValue(object, fieldName, classType);
     }
 

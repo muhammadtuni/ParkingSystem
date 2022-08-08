@@ -27,11 +27,11 @@ public class CategoryImplementationService implements CrudService {
         return header;
     }
 
-//    @Override
-//    public Object getUpdate(Object id) {
-//        Category entity = categoryRepository.findById((String) id).get();
-//        return entity;
-//    }
+    @Override
+    public Object getUpdate(Object id) {
+        var entity = categoryRepository.findById((String) id);
+        return entity.isPresent() ? entity.get() : null;
+    }
 
     @Override
     public Object save(Object dto, Class<?> dtoType) {
