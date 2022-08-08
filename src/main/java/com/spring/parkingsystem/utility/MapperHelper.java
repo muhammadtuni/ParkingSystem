@@ -1,10 +1,14 @@
 package com.spring.parkingsystem.utility;
 
+import com.spring.parkingsystem.dtos.ErrorDto;
 import com.spring.parkingsystem.models.Category;
+import org.springframework.validation.ObjectError;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapperHelper {
     private static Object getFieldValue(Object object, String fieldName, Class<?> classType){
@@ -83,6 +87,16 @@ public class MapperHelper {
 
     public static Category getCategoryField(Object object, Integer index){
         return (Category) ((Object[])object)[index];
+    }
+
+    public static List<ErrorDto> getErrors(List<ObjectError> errors){
+        var dto = new ArrayList<ErrorDto>();
+        for(var error : errors){
+            var fieldName = getStringField(error.getArguments()[0], "defaultMessage");
+            fieldName = (fieldName.equals("")) ? "object" : fieldName;
+            dto.add(new ErrorDto(fieldName, error.getDefaultMessage()));
+        }
+        return dto;
     }
 
 }

@@ -75,7 +75,8 @@ public class CategoryController {
                 Object respond = service.save(dto, UpsertCategoryDto.class);
                 return new ResponseEntity<>(new RestResponse<>(respond, "Succes", "201"), HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>(new RestResponse<>(null, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
+                var errors = MapperHelper.getErrors(bindingResult.getAllErrors());
+                return new ResponseEntity<>(new RestResponse<>((errors), "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
             }
         } catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -89,7 +90,8 @@ public class CategoryController {
                 service.save(dto, UpsertCategoryDto.class);
                 return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(new RestResponse<>(null, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
+                var errors = MapperHelper.getErrors(bindingResult.getAllErrors());
+                return new ResponseEntity<>(new RestResponse<>(errors, "Validation error", "422"), HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);
