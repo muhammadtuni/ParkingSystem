@@ -7,5 +7,6 @@ import com.spring.parkingsystem.dtos.transaction.TransactionHeaderDto;
 public interface TransactionService {
     public TransactionHeaderDto masukParkirMotor(MasukParkirDto motor);
     public TransactionHeaderDto masukParkirMobil(MasukParkirDto mobil);
+    public TransactionHeaderDto masukParkir(MasukParkirDto transaction, String catId);
     public ArsipHeaderDto keluarParkir(ArsipHeaderDto arsip, Integer id);
 }

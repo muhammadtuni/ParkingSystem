@@ -82,6 +82,11 @@ public class TransactionController {
         return new ResponseEntity<>(new RestResponse<>(transactionService.masukParkirMobil(mobil), "parkir mobil", "201"), HttpStatus.CREATED);
     }
 
+    @PostMapping
+    public ResponseEntity<RestResponse<TransactionHeaderDto>> insertParkir(MasukParkirDto parkir, @RequestParam String catId){
+        return new ResponseEntity<>(new RestResponse<>(transactionService.masukParkir(parkir, catId), "parkir " + catId, "201"), HttpStatus.CREATED);
+    }
+
     @PostMapping("keluar")
     public ResponseEntity<RestResponse<ArsipHeaderDto>> keluar(ArsipHeaderDto arsip, @RequestParam Integer id){
         return new ResponseEntity<>(new RestResponse<>(transactionService.keluarParkir(arsip, id), "keluar parkir", "201"), HttpStatus.CREATED);

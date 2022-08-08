@@ -16,6 +16,13 @@ public class MasukParkirDto {
     private final LocalTime jamMasuk;
     private final LocalDate tanggalMasuk;
 
+    public Transaction parkir(Transaction transaction, Category category) {
+        transaction.setJenisKendaraan(category);
+        transaction.setKeterangan(category.getId());
+        transaction.setJamMasuk(LocalDateTime.now());
+        transaction.setTanggalMasuk(LocalDate.now());
+        return transaction;
+    }
     public Transaction parkirMotor(Transaction motor, Category categoryMotor) {
         motor.setJenisKendaraan(categoryMotor);
         motor.setKeterangan("Motor");

@@ -59,6 +59,14 @@ public class TransactionImplementationService implements TransactionService, Cru
     }
 
     @Override
+    public TransactionHeaderDto masukParkir(MasukParkirDto transaction, String catId) {
+        var category = categoryRepository.findById(catId).get();
+        var masukParkir = transaction.parkir(new Transaction(), category);
+        transactionRepository.save(masukParkir);
+        return TransactionHeaderDto.set(masukParkir);
+    }
+
+    @Override
     public ArsipHeaderDto keluarParkir(ArsipHeaderDto arsip, Integer id) {
         Transaction transaction = transactionRepository.findById(id).get();
         Arsip keluar = arsip.keluarParkir(new Arsip(), transaction);
