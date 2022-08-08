@@ -65,7 +65,7 @@ public class TransactionController {
     public ResponseEntity<RestResponse<Object>> getUpdate(@PathVariable(required = true) Integer id){
         try{
             var entity = service.getUpdate(id);
-            var dto = new TransactionDto(entity);
+            var dto = new TransactionHeadDto(entity);
             return new ResponseEntity<>(new RestResponse<>((dto), "Succes", "200"), HttpStatus.OK);
         } catch (Exception exception){
             return new ResponseEntity<>(new RestResponse<>(null, exception.getMessage(), "500"), HttpStatus.INTERNAL_SERVER_ERROR);

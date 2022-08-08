@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
-public class TransactionDto {
+public class TransactionHeadDto {
     private Integer id;
     private String keterangan;
     private LocalDateTime jam;
     private LocalDate tanggal;
 
-    public TransactionDto(Object entity) {
+    public TransactionHeadDto(Object entity) {
         this.id = MapperHelper.getIntegerField(entity, "id", Transaction.class);
         this.keterangan = MapperHelper.getStringField(entity, "keterangan", Transaction.class);
         this.jam = MapperHelper.getLocalDateTimeField(entity, "jamMasuk", Transaction.class);
