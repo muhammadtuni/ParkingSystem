@@ -25,8 +25,7 @@
 ## About The Project
 
 Project ini adalah sebuah sistem parkir sederhana. Seperti sistem parkir pada umumnya, sistem parkir yang saya buat ini dapat mencatat setiap transaksi kendaraan yang
-parkir. Kemudian ketika kendaraan tersebut sudah keluar dari tempat parkir, maka data transaksi kendaraan tersebut akan masuk kedalam data arsip. Dalam projek saya ini, 
-terdapat dua kategori kendaraan yaitu roda 2 dan roda 4 dengan tarif yang berbeda.
+parkir. Kemudian ketika kendaraan tersebut sudah keluar dari tempat parkir, maka data transaksi kendaraan tersebut akan masuk kedalam data arsip.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -56,7 +55,7 @@ Clone the repo
 Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
 <div align="center">
   <a href="https://github.com/muhammadtuni/ParkingSystem_Spring_Rest.git">
-    <img src="image/ss postman.png" alt="Logo" width="200" height="200">
+    <img src="image/ss.png" alt="Logo" width="200" height="200">
   </a>
 </div>
   
@@ -71,7 +70,7 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
    ```sh
    input body:
    {
-    "id" : "id yang ingin di tambah",
+    "id" : "jenis kendaraan yang ingin ditambahkan",
     "tarif" : "set tarif",
     "tariflanjut" : "set tarif lanjut"
     }
@@ -87,10 +86,14 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
    ```sh
    input body:
    {
-    "id" : "id yang ingin di update",
+    "id" : "jenis kendaraan yang ingin diupdate",
     "tarif" : "set tarif baru",
     "tariflanjut" : "set tarif lanjut baru"
     }
+   ```
+* Get By Id (GET) - Category
+   ```sh
+   {{base_url}}/category/id?id="masukkan id yang ingin di keluarkan"
    ```
 * Masuk Motor (POST)
    ```sh
@@ -107,7 +110,19 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
 * All Transaction (GET)
    ```sh
    {{base_url}}/transaction
-   ```  
+   ```
+* Get By Id (GET) - Transaction
+   ```sh
+   {{base_url}}/transaction/{id}
+   ```
+* Masuk Parkir (POST)
+   ```sh
+   {{base_url}}/transaction/catId="masukkan category id yang akan parkir"
+   ```
+* Get By Id (GET) - Arsip
+   ```sh
+   {{base_url}}/arsip/{id}
+   ```
 * All Arsip (GET)
    ```sh
    {{base_url}}/arsip
@@ -120,7 +135,7 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
 <!-- CONTACT -->
 ## Contact
 
-Your Name - Muhammad Tuni Subayu
+My Name - Muhammad Tuni Subayu
 
 Project Link: [https://github.com/muhammadtuni/ParkingSystem_Spring_Rest.git](https://github.com/muhammadtuni/ParkingSystem_Spring_Rest.git)
 
