@@ -135,7 +135,7 @@ Cara menjalankan project ini menggunakan Postman(https://www.postman.com/)
 <!-- CONTACT -->
 ## Contact
 
-Your Name - Muhammad Tuni Subayu
+My Name - Muhammad Tuni Subayu
 
 Project Link: [https://github.com/muhammadtuni/ParkingSystem_Spring_Rest.git](https://github.com/muhammadtuni/ParkingSystem_Spring_Rest.git)
 
